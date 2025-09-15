@@ -9,7 +9,7 @@ Customers can browse outlets, explore menus, place orders, track deliveries in r
 
 ### 👤 Customer Features
 
-- Secure **Signup/Login** (Email, Phone, OTP).
+- Secure **Signup/Login/login with otp/forget password** (Email, Phone, OTP).
 - Profile management with avatar upload.
 - Manage multiple addresses with **Geo API & Pincode**.
 - Browse **multiple outlets** with timings & availability.
@@ -30,13 +30,18 @@ Customers can browse outlets, explore menus, place orders, track deliveries in r
 
 ## 🛠 Tech Stack
 
-- **Frontend:** React.js, Chakra UI / Material UI
-- **State Management:** Redux Toolkit
-- **Auth:** JWT + Role-based Access
-- **API:** Node.js + Express backend
-- **Database:** MongoDB
+- **Frontend:** React.js  
+- **UI Framework:** Chakra UI / Material UI  
+- **State Management:** Redux Toolkit  
+- **Form Handling & Validation:** Formik + Yup  
+- **Image Handling:** Multer + Cloudinary (via backend APIs)  
+- **Utilities:** Lodash  
+- **SEO & Metadata:** React Helmet Async  
+- **Notifications:** React Toastify  
+- **Auth:** JWT + Role-based Access (via backend)  
+- **API Integration:** Axios (REST API calls to Node.js + Express backend)  
+- **Database:** MongoDB (via backend)  
 
----
 
 ## Environment Variables
 

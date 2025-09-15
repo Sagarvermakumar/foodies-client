@@ -38,7 +38,8 @@ function App() {
       } catch (error) {
         dispatch(userNotExist(error.response.data.message || 'Authentication failed'));
         dispatch(setLoading(false));
-      }
+      }finally{
+        dispatch(setLoading(false));
     };
     checkAuth();
   }, [dispatch]);

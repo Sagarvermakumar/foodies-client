@@ -40,6 +40,7 @@ function App() {
         dispatch(setLoading(false));
       }finally{
         dispatch(setLoading(false));
+      }
     };
     checkAuth();
   }, [dispatch]);

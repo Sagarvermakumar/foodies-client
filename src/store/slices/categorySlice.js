@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { categoryActions } from '../actions/categoryActions'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { categoryActions } from '../actions/categoryActions';
 
 const initialState = {
   categories: [],
@@ -18,7 +18,8 @@ export const getCategories = createAsyncThunk(
   'category/getCategories',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await categoryActions.getCategories()
+      const response = await categoryActions.getCategories();
+      console.log("Res : ", response)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch categories')

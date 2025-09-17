@@ -43,7 +43,10 @@ const Home = () => {
   const categories = useSelector(categorySelectors.getCategories)
   const categoryItems = useSelector(categorySelectors.getCategoryItems)
   const isLoadingCategory = useSelector(categorySelectors.isLoading('category'))
+
   const isLoadingItems = useSelector(categorySelectors.isLoading('items'))
+
+  console.log(isLoadingCategory)
 
   const [selectedCategory, setSelectedCategory] = useState('')
   console.log("cat : ", categories)
@@ -134,22 +137,26 @@ const Home = () => {
             'Explore a variety of delicious dishes curated just for you. Browse, select, and enjoy your meal with ease!'
           }
         />
-        {isLoadingCategory ? (
-          <CategoryListSkeleton />
-        ) : (
-          Array.isArray(categories) && (
-            <CategoryList
-              categories={categories}
-              setSelectedCategory={setSelectedCategory}
-            />
-          )
-        )}
+        <Box >
+          {isLoadingCategory ? (
+            <CategoryListSkeleton />
+          ) : (
+            Array.isArray(categories) && (
+              <CategoryList
+                categories={categories}
+                setSelectedCategory={setSelectedCategory}
+              />
+            )
+          )}
+        </Box>
       </Box>
 
       {/* Menu List */}
       <Box  >
         {isLoadingItems ? (
+
           <MenuSkeleton />
+
         ) : (
           <>
             <MenuHeader

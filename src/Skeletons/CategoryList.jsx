@@ -21,7 +21,7 @@ const CategoryListSkeleton = () => {
       <Flex gap={4} wrap="nowrap">
         {skeletonItems.map((_, index) => (
           <MotionBox
-            key={"category" + 1}
+            key={index}
             flex="0 0 auto"
             w="110px"
             textAlign="center"
@@ -33,7 +33,7 @@ const CategoryListSkeleton = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true, amount: 0.2 }}
-            whileHover={{ scale: 1.05 }} // Parent scale
+            whilehover={{ scale: 1.05 }} // Parent scale
           >
             <Skeleton
               width={'100%'}
@@ -48,7 +48,7 @@ const CategoryListSkeleton = () => {
                 initial: { scale: 1 }
               }}
               initial="initial"
-              whileHover="hover"
+              whilehover="hover"
               transition={{ type: "spring", stiffness: 500 }}
             />
             <Skeleton
@@ -60,7 +60,7 @@ const CategoryListSkeleton = () => {
                 hover: { color: 'brand.primary' },
               }}
               initial="initial"
-              whileHover="hover"
+              whilehover="hover"
               mt={2}
             />
 

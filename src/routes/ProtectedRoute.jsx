@@ -15,11 +15,9 @@ const ProtectRoute = ({ children, user, loading, redirect = "/login" }) => {
   if (!user) {
     return <Navigate to={redirect} replace state={{ from: location }} />;
   }
-  console.log("Checked")
 
   return children;
 };
-console.log("Redirect")
 
 ProtectRoute.propTypes = {
   children: PropTypes.node,

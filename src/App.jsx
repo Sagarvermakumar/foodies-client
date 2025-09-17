@@ -1,6 +1,11 @@
 import { lazy, Suspense, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from 'react-router-dom'
 import LoadingProvider from './components/LoadingProvider.jsx'
 import BASE_URL from './config.js'
 import './index.css'
@@ -9,10 +14,10 @@ import { setLoading, userExist, userNotExist } from './store/slices/authSlice'
 import axiosClient from './utils/axiosClient.js'
 
 // Lazy load all pages
-const DynamicSEO = lazy(() => import("./components/DynamicSEO.jsx"));
-const GlobalLoader = lazy(() => import("./components/GlobalLoader.jsx"));
-const Layout = lazy(() => import("./components/Layout.jsx"));
-const ProtectRoute = lazy(() => import("./routes/ProtectedRoute.jsx"));
+const DynamicSEO = lazy(() => import('./components/DynamicSEO.jsx'))
+const GlobalLoader = lazy(() => import('./components/GlobalLoader.jsx'))
+const Layout = lazy(() => import('./components/Layout.jsx'))
+const ProtectRoute = lazy(() => import('./routes/ProtectedRoute.jsx'))
 const Home = lazy(() => import('./pages/Home'))
 const Login = lazy(() => import('./pages/Login'))
 const Register = lazy(() => import('./pages/Register'))
@@ -28,22 +33,23 @@ const ChangePassword = lazy(() => import('./pages/ChangePassword.jsx'))
 function App() {
   const dispatch = useDispatch()
 
-  const user = useSelector(authSelectors.getUser);
+  const user = useSelector(authSelectors.getUser)
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axiosClient.get(`${BASE_URL}/api/v1/auth/me`, { withCredentials: true });
-        dispatch(userExist({ user: res.data.user }));
-
+        const res = await axiosClient.get(`${BASE_URL}/api/v1/auth/me`, {
+          withCredentials: true,
+        })
+        dispatch(userExist({ user: res?.data?.user }))
       } catch (error) {
-        dispatch(userNotExist(error.response.data.message || 'Authentication failed'));
-        dispatch(setLoading(false));
+        dispatch(
+          userNotExist(error?.response?.data?.message || 'Authentication failed')
+        )
+        dispatch(setLoading(false))
       }
-    };
-    checkAuth();
-  }, [dispatch]);
-
-
+    }
+    checkAuth()
+  }, [dispatch])
 
   const loading = useSelector(authSelectors.isLoading)
 
@@ -55,9 +61,9 @@ function App() {
           <Routes>
             {/* Public Routes */}
             <Route
-              path='/login'
+              path="/login"
               element={
-                <ProtectRoute user={!user} loading={loading} redirect='/' >
+                <ProtectRoute user={!user} loading={loading} redirect="/">
                   <Login />
                 </ProtectRoute>
               }
@@ -68,22 +74,58 @@ function App() {
             <Route path="/reset-password" element={<ResetPassword />} />
 
             {/* Protected Routes with Layout */}
-            <Route
-              path="/"
-              element={
-                <ProtectRoute user={user} loading={loading}  >
-                  <Layout />
-                </ProtectRoute>
-              }
-            >
+            <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="menu" element={<Menu />} />
-              <Route path="cart" element={<Cart />} />
-              <Route path="checkout" element={<Checkout />} />
-              <Route path="orders" element={<Orders />} />
-              <Route path="orders/:orderId/:cartId" element={<OrderDetails />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="change-password" element={<ChangePassword />} />
+
+              <Route
+                path="cart"
+                element={
+                  <ProtectRoute user={user} loading={loading}>
+                    <Cart />
+                  </ProtectRoute>
+                }
+              />
+              <Route
+                path="checkout"
+                element={
+                  <ProtectRoute user={user} loading={loading}>
+                    <Checkout />
+                  </ProtectRoute>
+                }
+              />
+              <Route
+                path="orders"
+                element={
+                  <ProtectRoute user={user} loading={loading}>
+                    <Orders />
+                  </ProtectRoute>
+                }
+              />
+              <Route
+                path="orders/:orderId/:cartId"
+                element={
+                  <ProtectRoute user={user} loading={loading}>
+                    <OrderDetails />
+                  </ProtectRoute>
+                }
+              />
+              <Route
+                path="profile"
+                element={
+                  <ProtectRoute user={user} loading={loading} >
+                    <Profile />
+                  </ProtectRoute>
+                }
+              />
+              <Route
+                path="change-password"
+                element={
+                  <ProtectRoute>
+                    <ChangePassword />
+                  </ProtectRoute>
+                }
+              />
             </Route>
 
             {/* Catch all route */}

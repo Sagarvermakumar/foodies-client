@@ -15,6 +15,7 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  useColorMode,
   useToast,
   VStack
 } from '@chakra-ui/react'
@@ -23,7 +24,7 @@ import { motion } from "framer-motion"
 import { Eye, EyeOff, Lock, Mail, Truck } from 'lucide-react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import AuthInfoBox from '../components/AuthInfoBox'
 import { useBrandColors } from '../hooks/useBrandColors'
 import PublicLayout from '../Layout/PublicLayout'
@@ -46,8 +47,9 @@ const fadeUp = {
   }),
 };
 const Register = () => {
+  const location = useLocation();
 
-
+  const { colorMode } = useColorMode()
   const { bg, borderColor, color } = useBrandColors()
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -57,7 +59,7 @@ const Register = () => {
   const toast = useToast()
 
   const loading = useSelector(authSelectors.isLoading)
-
+  const from = location.state?.from?.pathname || "/";
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
       await dispatch(createUser(values)).unwrap()
@@ -68,7 +70,7 @@ const Register = () => {
         duration: 3000,
         isClosable: true
       })
-      navigate('/')
+      navigate(from, { replace: true });
     } catch (error) {
       toast({
         title: 'Registration failed',
@@ -101,7 +103,7 @@ const Register = () => {
           initial={{ x: -80, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          boxShadow={'dark-lg'}
+          boxShadow={colorMode === "dark" ? "dark-lg" : "none"}
           px={8}
           py={16}
         >

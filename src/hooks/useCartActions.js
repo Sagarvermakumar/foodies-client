@@ -6,10 +6,15 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { authSelectors } from "../store/selectors/authSelectors";
 import { addToCart } from "../store/slices/cartSlice";
 
 export const useCartActions = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+    const location = useLocation();
+  const user = useSelector(authSelectors.getUser)
   const { quantities, selectedVariations, selectedAddons } = useSelector(
     (state) => state.cartUI
   );
@@ -24,7 +29,13 @@ export const useCartActions = () => {
     const addons = selectedAddons[item._id] || [];
 
     try {
+          if (!user) {
+      // 🚪 Agar user nahi hai → login pe redirect with state
+      navigate("/login", { state: { from: location } });
+      return;
+    }
       setLoadingItemId(item._id);
+
 
       await dispatch(
         addToCart({

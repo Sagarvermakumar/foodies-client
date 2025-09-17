@@ -1,11 +1,9 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import { useBrandColors } from "../../hooks/useBrandColors";
+import { Box, Flex, Image } from '@chakra-ui/react'
+import { motion } from 'framer-motion'
+import { useBrandColors } from '../../hooks/useBrandColors'
 
-const MotionBox = motion(Box);
-const MotionImage = motion(Image);
-
-
+const MotionBox = motion(Box)
+const MotionImage = motion(Image)
 
 const CategorySection = ({ categories = [], setSelectedCategory }) => {
   const { color } = useBrandColors()
@@ -14,16 +12,17 @@ const CategorySection = ({ categories = [], setSelectedCategory }) => {
       w="100%"
       overflowX="auto"
       // py={4}
+      height={'150px'}
       px={2}
       display={'flex'}
-      justifyContent={{ base: "flex-start", md: "center" }}
-      css={{ "&::-webkit-scrollbar": { display: "none" } }}
+      justifyContent={{ base: 'flex-start', md: 'center' }}
+      css={{ '&::-webkit-scrollbar': { display: 'none' } }}
       maxW="90vw"
     >
       <Flex gap={4} wrap="nowrap">
         {categories.map((category, index) => (
           <MotionBox
-            key={category?._id}
+            key={category?._id + category?.name}
             onClick={() => setSelectedCategory(category?._id)}
             flex="0 0 auto"
             w="110px"
@@ -48,11 +47,11 @@ const CategorySection = ({ categories = [], setSelectedCategory }) => {
               // Image grows more on parent hover
               variants={{
                 hover: { scale: 1.2 },
-                initial: { scale: 1 }
+                initial: { scale: 1 },
               }}
               initial="initial"
               whileHover="hover"
-              transition={{ type: "spring", stiffness: 500 }}
+              transition={{ type: 'spring', stiffness: 500 }}
             />
             <MotionBox
               textAlign="center"
@@ -69,12 +68,10 @@ const CategorySection = ({ categories = [], setSelectedCategory }) => {
               {category?.name}
             </MotionBox>
           </MotionBox>
-
         ))}
       </Flex>
-
     </Box>
-  );
-};
+  )
+}
 
-export default CategorySection;
+export default CategorySection

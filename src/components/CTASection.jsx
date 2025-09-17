@@ -55,7 +55,7 @@ export default function CTASection({ isAuthenticated, color }) {
               <MotionButton
                 as={RouterLink}
                 to="/register"
-                size="lg"
+                size="md"
                 variant="outline"
                 colorScheme="red"
                 whileHover={{ scale: 1.08 }}

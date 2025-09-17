@@ -38,13 +38,13 @@ Customers can browse outlets, explore menus, place orders, track deliveries in r
 
 ---
 
-## Environment Variables
+## 🚀 Getting Started
+
+# Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
 ## `VITE_API_BASE_URL`
-
-## 🚀 Getting Started
 
 ```bash
 git clone https://github.com/Sagarvermakumar/foodies-client.git

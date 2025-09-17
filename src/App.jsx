@@ -42,10 +42,8 @@ function App() {
         })
         dispatch(userExist({ user: res?.data?.user }))
       } catch (error) {
-        dispatch(
-          userNotExist(error?.response?.data?.message || 'Authentication failed')
-        )
-        dispatch(setLoading(false))
+        dispatch(userNotExist(error.response.data.message || 'Authentication failed'));
+        dispatch(setLoading(false));
       }
     }
     checkAuth()

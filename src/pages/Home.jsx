@@ -138,7 +138,7 @@ const Home = () => {
           }
 
         />
-        <Box >
+        <Box mt={8} >
           {isLoadingCategory ? (
             <CategoryListSkeleton />
           ) : (

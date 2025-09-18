@@ -96,7 +96,7 @@ const HeroSection = () => {
             animate={{ x: 0, opacity: 0.95 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <Text fontSize="lg" color={"#f5f5f5"}>
+            <Text fontSize="lg" color={"gray.500"}>
               Choose from a diverse menu, featuring a delectable array of dishes.
               Our mission is to satisfy your cravings and elevate your dining
               experience, one delicious meal at a time.

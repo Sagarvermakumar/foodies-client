@@ -87,47 +87,50 @@ const Home = () => {
       <HeroSection />
 
       {/* Features Section */}
-      <MenuHeader title={'Why Choose Zayka Express?'} my={8} />
-      <SimpleGrid columns={{ base: 1, sm: 1, md: 2, lg: 4 }} spacing={4} m={0} >
-        {Array.isArray(features) &&
-          features.map((feature, index) => (
-            <MotionCard
-              key={index}
-              textAlign="center"
-              bg={bg}
-              border={'1px solid'}
-              borderColor={borderColor}
-              direction="row"
-              align="center"
-              gap={3}
-              p={4}
-              w="100%"
-              mx="auto"
-              borderRadius="2xl"
-              whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 50 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              viewport={{ once: true, amount: 0.3 }}
-              m={0}
-            >
-              <CardBody bg={'transparent'} m={0} >
-                <VStack spacing={4}>
+      <Box mt={12} mb={8} >
 
-                  {feature.icon && (
-                    <Icon as={feature.icon} boxSize={8} color="brand.primary" />
-                  )}
-                  <Heading size="md">{String(feature.title || '')}</Heading>
-                  <Text color="gray.600" fontSize="sm">
-                    {String(feature.description || '')}
-                  </Text>
-                </VStack>
-              </CardBody>
-            </MotionCard>
-          ))}
-      </SimpleGrid>
 
+        <MenuHeader title={'Why Choose Zayka Express?'} />
+        <SimpleGrid columns={{ base: 1, sm: 1, md: 2, lg: 4 }} spacing={4} m={0} >
+          {Array.isArray(features) &&
+            features.map((feature, index) => (
+              <MotionCard
+                key={index}
+                textAlign="center"
+                bg={bg}
+                border={'1px solid'}
+                borderColor={borderColor}
+                direction="row"
+                align="center"
+                gap={3}
+                p={4}
+                w="100%"
+                mx="auto"
+                borderRadius="2xl"
+                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 50 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true, amount: 0.3 }}
+                m={0}
+              >
+                <CardBody bg={'transparent'} m={0} >
+                  <VStack spacing={4}>
+
+                    {feature.icon && (
+                      <Icon as={feature.icon} boxSize={8} color="brand.primary" />
+                    )}
+                    <Heading size="md">{String(feature.title || '')}</Heading>
+                    <Text color="gray.600" fontSize="sm">
+                      {String(feature.description || '')}
+                    </Text>
+                  </VStack>
+                </CardBody>
+              </MotionCard>
+            ))}
+        </SimpleGrid>
+      </Box>
       {/* Categories Section */}
-      <Box mb={12} mt={8} id="menu" my={4}>
+      <Box mt={12} mb={8} id="menu" >
         <MenuHeader
           title={'Choose Your Favorite Category'}
           subtitle={
@@ -156,11 +159,11 @@ const Home = () => {
           <MenuSkeleton />
 
         ) : (
-          <>
+          <Box mt={12}>
             <MenuHeader
               title="Our Delicious Menu"
               subtitle="Explore a variety of dishes prepared with fresh ingredients for every taste."
-              my={8}
+
             />
             {Array.isArray(categoryItems) && (
               <MenuItemList
@@ -171,7 +174,7 @@ const Home = () => {
                 onQuantityChange={handleQuantityChange}
               />
             )}
-          </>
+          </Box>
         )}
       </Box>
 

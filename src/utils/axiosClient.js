@@ -4,7 +4,6 @@ import BASE_URL from '../config.js'
 
 // Create axios instance
 
-console.log("base : ", BASE_URL)
 const axiosClient = axios.create({
   baseURL: `${BASE_URL}/api/v1`, // Common base url for all APIs
   withCredentials: true, // Important for cookies/session

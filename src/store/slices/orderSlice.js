@@ -112,7 +112,6 @@ export const checkOrderStatus = createAsyncThunk(
 export const quickRepeatOrder = createAsyncThunk(
   'order/quickRepeatOrder',
   async ({ id, cartId }, { rejectWithValue }) => {
-    console.log("Qucick payload : ", { id, cartId })
     try {
       const response = await orderActions.quickRepeatOrder(id,cartId)
       return response.data

@@ -10,7 +10,6 @@ const ProtectRoute = ({ children, user, loading, redirect = "/login" }) => {
     return <GlobalLoader />
   }
 
-  console.log("Not Checked")
   // 🚪 If not logged in, go to login but keep the intended route
   if (!user) {
     return <Navigate to={redirect} replace state={{ from: location }} />;

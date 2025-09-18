@@ -22,10 +22,8 @@ export const getAllItems = createAsyncThunk(
   async (newPage, { rejectWithValue }) => {
     try {
       const res = await itemAction.getAllItems(newPage)
-      console.log(res.data)
       return res.data
     } catch (error) {
-      console.log(error)
       return rejectWithValue(
         error.response?.data?.message || 'Failed to fetch items'
       )
@@ -48,7 +46,6 @@ const itemSlice = createSlice({
       })
       .addCase(getAllItems.fulfilled, (state, action) => {
         state.isLoading.items = false
-        console.log(action.payload.data)
         state.items = action.payload.data
         state.pagination = action.payload.pagination
       })

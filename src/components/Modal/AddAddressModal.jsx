@@ -76,13 +76,11 @@ const AddAddressModal = ({
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               try {
                 if (editingAddress) {
-                  console.log("Updaig values : ", values)
                   await dispatch(
                     updateAddress({ id: editingAddress._id, ...values })
                   ).unwrap()
                   toast.success('Address updated successfully')
                 } else {
-                  console.log("Creating values : ", values)
                   await dispatch(createAddress(values)).unwrap()
                   toast.success('Address added successfully')
                 }

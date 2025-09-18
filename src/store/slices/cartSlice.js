@@ -174,19 +174,9 @@ const cartSlice = createSlice({
       })
       .addCase(removeCartItem.fulfilled, (state, action) => {
         state.isRemoving = false
-        console.log("pay load", action.payload)
         
         const itemId = action.payload
         state.items = state.items.filter(({item}) => item._id !== itemId)
-
-        // Recalculate total
-        // state.total = state.items.reduce(
-        //   (sum, item) => sum + item.price * item.quantity,
-        //   0
-        // )
-        // if (state.couponApplied) {
-        //   state.total = state.total - state.discount
-        // }
       })
       .addCase(removeCartItem.rejected, (state, action) => {
         state.isRemoving = false

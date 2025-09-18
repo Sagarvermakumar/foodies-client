@@ -38,7 +38,6 @@ export const createAddress = createAsyncThunk(
 export const updateAddress = createAsyncThunk(
   'address/updateAddress',
   async ({ id, ...addressData }, { rejectWithValue }) => {
-    console.log({ id, addressData })
     try {
       const response = await addressActions.updateAddress(
         id,
@@ -140,7 +139,6 @@ const addressSlice = createSlice({
       .addCase(createAddress.fulfilled, (state, action) => {
         state.loading.add = false
         const newAddress = action.payload.data
-        console.log("new Addr : ", newAddress)
         state.addresses.push(newAddress)
 
         if (newAddress?.isDefaultAddress) {

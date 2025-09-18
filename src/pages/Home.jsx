@@ -37,7 +37,6 @@ const MotionCard = motion(Card)
 const Home = () => {
   const { borderColor, color, bg } = useBrandColors()
   const dispatch = useDispatch()
-  const user = useSelector(authSelectors.getUser)
   const isAuthenticated = useSelector(authSelectors.isAuthenticated)
 
   const categories = useSelector(categorySelectors.getCategories)
@@ -46,10 +45,8 @@ const Home = () => {
 
   const isLoadingItems = useSelector(categorySelectors.isLoading('items'))
 
-  console.log(isLoadingCategory)
 
   const [selectedCategory, setSelectedCategory] = useState('')
-  console.log("cat : ", categories)
   const { quantities } = useSelector((state) => state.cartUI)
   const { handleAddToCart, loadingItemId } = useCartActions()
 

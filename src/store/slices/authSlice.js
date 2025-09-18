@@ -139,10 +139,7 @@ export const logoutUser = createAsyncThunk(
 export const updateProfile = createAsyncThunk(
   "user/update-avatar",
   async (formData, thunkAPI) => {
-       // ✅ Check what's inside
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]); // key, value
-      }
+
     try {
       const { data } = await authActions.updateProfile(formData); // axios post with FormData
       return data;

@@ -68,9 +68,7 @@ const OrderDetails = () => {
 
     setIsCancelling(true)
     try {
-      console.log("Id : ", currentOrder._id)
 
-      console.log({ orderId: currentOrder._id, reason, comment })
       await dispatch(cancelOrder({ orderId: currentOrder._id, reason, comment })).unwrap()
       toast.success('Order cancelled successfully');
       onClose()
@@ -83,7 +81,6 @@ const OrderDetails = () => {
       setIsCancelling(false)
     }
   }
-  console.log(cartId)
   const handleQuickRepeat = async (id) => {
     if (!currentOrder) return
     try {

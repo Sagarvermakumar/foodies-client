@@ -8,7 +8,6 @@ export const addressService = {
 
   // Update existing address
   updateAddress: async (addressId, addressData) => {
-    console.log({addressData})
     return await axiosClient.put(`/address/update/${addressId}`, addressData)
   },
 

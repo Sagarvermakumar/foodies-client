@@ -60,7 +60,6 @@ const Checkout = () => {
   const [orderPlaced, setOrderPlaced] = useState(false)
   const { items, total, couponApplied } = useSelector((state) => state.cart);
 
-  console.log(items)
 
   const { discount } = total
 

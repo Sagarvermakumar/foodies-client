@@ -20,7 +20,7 @@ const MenuHeader = ({ title, subtitle, my = 0, showBack = false, alignLg = "cent
       align={{ base: "flex-start", lg: "center" }}
     >
       {/* Title Row with Back Button */}
-      <HStack w="100%" spacing={3} justify={{ base: "flex-start", lg: alignLg }}>
+      <HStack w="100%" spacing={3} justify={{ base: "flex-start", lg: alignLg }} mt={4} >
         {showBack && (
           <IconButton
             aria-label="Go back"

@@ -1,4 +1,4 @@
-import { Box, Container, Heading, Text, useColorMode, VStack } from "@chakra-ui/react";
+import { Box, Container, Heading, Text, VStack } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { HERO_IMAGES } from "../assets";
@@ -11,13 +11,12 @@ const MotionVStack = motion(VStack);
 
 
 const HeroSection = () => {
-  const { colorMode } = useColorMode();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % HERO_IMAGES.length);
-    }, 4000); // 4 seconds
+    }, 7000); // 4 seconds
     return () => clearInterval(interval);
   }, []);
 

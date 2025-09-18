@@ -63,7 +63,9 @@ const Header = () => {
 
 
 
-  const isActive = (path) => location.pathname.startsWith(path)
+  const isActive = (to) => {
+    return to === "/" ? location.pathname === "/" : location.pathname.startsWith(to);
+  };
   const handleLogout = async () => {
     try {
       await dispatch(logoutUser()).unwrap()

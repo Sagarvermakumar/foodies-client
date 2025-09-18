@@ -10,10 +10,7 @@ const slideIn = keyframes`
   100% { transform: translateY(0); }
 `
 
-const slideOut = keyframes`
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-100%); }
-`
+
 
 export const useLoading = () => {
   const context = useContext(LoadingContext)

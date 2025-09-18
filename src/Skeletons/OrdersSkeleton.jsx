@@ -6,65 +6,81 @@ import {
   Flex,
   Grid,
   HStack,
+  InputGroup,
+  InputLeftElement,
   SimpleGrid,
   Skeleton,
+  SkeletonCircle,
   SkeletonText,
   VStack
 } from "@chakra-ui/react";
+import { SearchIcon } from "lucide-react";
+import { useBrandColors } from "../hooks/useBrandColors";
 
-const OrdersSkeleton = ({ count = 4 }) => {
+const OrdersSkeleton = () => {
+  const { bg } = useBrandColors()
   return (
-    <Box>
-      <Flex
-        justify="space-between"
-        align="center"
-        mb={6}
-        direction={{ base: "column", md: "row" }}
-        gap={4}
-      >
-        <Skeleton height="28px" width="180px" /> {/* Heading */}
-        <HStack spacing={4} w={{ base: "100%", md: "auto" }}>
-          <Skeleton height="36px" width={{ base: "100%", md: "200px" }} rounded="md" /> {/* Input */}
-          <Skeleton height="36px" width={{ base: "100%", md: "150px" }} rounded="md" /> {/* Select */}
+    <Box my={8}>
+      {/* Header */}
+      <VStack spacing={3} mb={4} mt={4} w="100%" align={{ base: "flex-start", lg: "center" }}>
+        {/* Title Row with Back Button */}
+        <HStack w="100%" spacing={3} justify={{ base: "flex-start", lg: "center" }}>
+
+          <Skeleton height="32px" width="32px" borderRadius="md" />
+
+
+          <Skeleton height="28px" width="200px" borderRadius="md" /> {/* Title */}
         </HStack>
+
+        {/* Subtitle */}
+        <SkeletonText noOfLines={1} spacing="4" width="280px" />
+      </VStack>
+
+      {/* Filters and Search */}
+      <Flex direction={{ base: "column", md: "row" }} gap={4} mb={8}>
+        <InputGroup maxW="400px">
+          <InputLeftElement pointerEvents="none">
+            <SearchIcon color="gray.400" />
+          </InputLeftElement>
+          <Skeleton height="40px" w="full" borderRadius="md" />
+        </InputGroup>
+        <Skeleton height="40px" w={{ base: "full", md: "200px" }} borderRadius="md" />
       </Flex>
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} align="stretch">
-        {Array.from({ length: count }).map((_, idx) => (
-          <Card key={idx} shadow="md" rounded="xl">
+      {/* Orders List Skeleton */}
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} align="stretch" pb={16}>
+        {[...Array(4)].map((_, i) => (
+          <Card key={i} shadow="md" rounded="xl" bg={bg} >
             <CardBody>
-              {/* Header */}
+              {/* Order Header */}
               <Flex
                 direction={{ base: "column", md: "row" }}
                 justify="space-between"
                 align={{ base: "flex-start", md: "center" }}
                 mb={4}
               >
-                <VStack align="flex-start" spacing={2}>
+                <VStack align="flex-start" spacing={2} w="full">
                   <HStack>
                     <Skeleton height="20px" width="60px" />
-                    <Skeleton height="20px" width="80px" rounded="full" />
+                    <Skeleton height="20px" width="80px" borderRadius="full" />
                   </HStack>
-                  <Skeleton height="14px" width="160px" />
+                  <Skeleton height="14px" width="120px" />
                 </VStack>
               </Flex>
 
               <Divider mb={4} />
 
-              {/* Items preview */}
+              {/* Order Items Preview */}
               <Grid
-                templateColumns={{
-                  base: "1fr",
-                  md: "repeat(auto-fit, minmax(200px, 1fr))",
-                }}
+                templateColumns={{ base: "1fr", md: "repeat(auto-fit, minmax(200px, 1fr))" }}
                 gap={4}
                 mb={4}
               >
-                {Array.from({ length: 3 }).map((__, i) => (
-                  <HStack key={i} spacing={3} align="flex-start">
-                    <Skeleton boxSize="50px" borderRadius="md" />
+                {[...Array(3)].map((_, idx) => (
+                  <HStack key={idx} spacing={3} align="flex-start">
+                    <SkeletonCircle size="12" />
                     <Box flex="1">
-                      <SkeletonText mt="2" noOfLines={2} spacing="2" />
+                      <SkeletonText noOfLines={2} spacing="2" />
                     </Box>
                   </HStack>
                 ))}
@@ -72,9 +88,10 @@ const OrdersSkeleton = ({ count = 4 }) => {
 
               <Divider mb={4} />
 
+              {/* Buttons Skeleton */}
               <HStack spacing={3}>
-                <Skeleton height="32px" width="90px" rounded="md" />
-                <Skeleton height="32px" width="90px" rounded="md" />
+                <Skeleton height="32px" width="100px" borderRadius="md" />
+                <Skeleton height="32px" width="100px" borderRadius="md" />
               </HStack>
             </CardBody>
           </Card>

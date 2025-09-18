@@ -50,7 +50,7 @@ export default function CTAButton({
         animation: "gradientMove 3s linear infinite",
       }}
 
-      _hover={{ transform: 'scale(1.03)', bg: variant === "solid" ? hoverBg : "transparent", color: color }}
+      _hover={{ transform: 'scale(1.02)', bg: variant === "solid" ? hoverBg : "transparent", color: "#f2f2f2" }}
 
       _active={{ scale: 0.95 }}
       transition="all 0.2s ease"

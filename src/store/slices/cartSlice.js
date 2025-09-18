@@ -2,17 +2,16 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { cartActions } from '../actions/cartActions'
 
 const initialState = {
-  cartId:null,
+  cartId: null,
   items: [],
   total: {},
   loading: false,
-  isRemoving:false,
-  isUpdating:false,
+  isRemoving: false,
+  isUpdating: false,
   error: null,
   couponApplied: null,
   discount: 0,
 }
-
 
 export const addToCart = createAsyncThunk(
   'cart/addToCart',
@@ -147,21 +146,18 @@ const cartSlice = createSlice({
         state.isUpdating = true
         state.error = null
       })
-    .addCase(updateCartItem.fulfilled, (state, action) => {
-  state.isUpdating = false;
+      .addCase(updateCartItem.fulfilled, (state, action) => {
+        state.isUpdating = false
 
-  const { data } = action.payload; 
+        const { data } = action.payload
 
+        state.items = data.items
+        state.outlet = data.outlet
+        state.updatedAt = data.updatedAt
 
-  state.items = data.items; 
-  state.outlet = data.outlet;
-  state.updatedAt = data.updatedAt;
-
-  // Totals from backend
-  state.total = data.totals;
-
-})
-
+        // Totals from backend
+        state.total = data.totals
+      })
 
       .addCase(updateCartItem.rejected, (state, action) => {
         state.isUpdating = false
@@ -174,9 +170,9 @@ const cartSlice = createSlice({
       })
       .addCase(removeCartItem.fulfilled, (state, action) => {
         state.isRemoving = false
-        
+
         const itemId = action.payload
-        state.items = state.items.filter(({item}) => item._id !== itemId)
+        state.items = state.items.filter(({ item }) => item._id !== itemId)
       })
       .addCase(removeCartItem.rejected, (state, action) => {
         state.isRemoving = false
@@ -184,6 +180,7 @@ const cartSlice = createSlice({
       })
       // Get Cart
       .addCase(getCart.pending, (state) => {
+        state.loading=true  
         state.isRemoving = true
         state.error = null
       })

@@ -28,7 +28,6 @@ import {
   Delete as DeleteIcon,
   Edit as EditIcon,
   Mail as EmailIcon,
-  LockIcon,
   LogOutIcon,
   MapPin as MapPinIcon,
   MoonIcon,
@@ -37,12 +36,14 @@ import {
   Star as StarIcon,
   SunIcon,
   User as UserIcon,
-  Verified,
+  Verified
 } from 'lucide-react'
 import { toast } from 'react-hot-toast'
+import MenuHeader from '../components/MenuHeader'
 import AddAddressModal from '../components/Modal/AddAddressModal'
 import ProfilePictureUpdater from '../components/ProfilePicUpdator'
 import { useBrandColors } from '../hooks/useBrandColors'
+import AddressSkeleton from '../Skeletons/AddressSkeleton'
 import { getAllAddressSelector, makeLoadingSelector } from '../store/selectors/address.selector'
 import {
   deleteAddress,
@@ -148,19 +149,8 @@ const Profile = () => {
       {/* Profile Header */}
 
       <HStack width={'100%'} justify="space-between" my={4}>
-        <Heading color="brand.primary" fontSize={{ sm: "sm", md: "md", lg: "lg" }} >
-          👤  Personal Information
-        </Heading>
-        {/* <Tooltip label='Edit Profile Info' hasArrow>
-          <IconButton
-            size="sm"
-            variant="outline"
-            onClick={() => setIsEditingProfile(!isEditingProfile)}
-          >
-            <EditIcon />
-          </IconButton>
-          
-        </Tooltip> */}
+        <MenuHeader title={"Profile"} showBack={true} alignLg='flex-start' />
+
         <Tooltip
 
           label={`${colorMode === 'light' ? "Enable Light Mode" : "Enable Dark Mode"}`}
@@ -171,7 +161,6 @@ const Profile = () => {
             icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
             onClick={toggleColorMode}
             variant="ghost"
-            colorScheme="red"
           />
         </Tooltip>
       </HStack>
@@ -260,10 +249,7 @@ const Profile = () => {
 
       {/* Addresses List */}
       {isLoadingAddress ? (
-        <Box textAlign="center" py={20}>
-          <Spinner size="xl" color="brand.primary" />
-          <Text mt={4}>Loading addresses...</Text>
-        </Box>
+        <AddressSkeleton />
       ) : addresses.length === 0 ? (
         <Card bg={bg}>
           <CardBody textAlign="center">
@@ -287,7 +273,7 @@ const Profile = () => {
       ) : (
         <>
           <HStack justify={'space-between'} >
-            <Heading color="brand.primary" mt={4} fontSize={{ sm: "sm", md: "md", lg: "lg" }} >
+            <Heading color="brand.primary" my={4} fontSize={{ sm: "large", md: "md", lg: "lg" }} >
               🏠 Address
             </Heading>
             <Tooltip label="Add New Address" hasArrow>
@@ -316,13 +302,14 @@ const Profile = () => {
                 bg={'transparent'}
                 boxShadow="lg"
                 borderRadius="xl"
-                px={4}
+              // px={4}
               >
                 <CardBody>
                   <VStack spacing={4} align="stretch">
                     {/* Header Row */}
                     <Flex justify="space-between" align="center">
-                      <HStack>
+                      {/* Label + Default Badge */}
+                      <HStack spacing={3}>
                         <Text fontWeight="bold" fontSize="xl" color="orange.600">
                           {address?.label}
                         </Text>
@@ -332,7 +319,20 @@ const Profile = () => {
                           </Badge>
                         )}
                       </HStack>
+
+                      {/* Delete Button */}
+                      <Tooltip label="Remove this address" hasArrow>
+                        <IconButton
+                          icon={<DeleteIcon />}
+                          colorScheme="red"
+                          variant="solid"
+                          size="sm"
+                          onClick={() => handleDeleteAddress(address?._id)}
+                          aria-label="Delete address"
+                        />
+                      </Tooltip>
                     </Flex>
+
 
                     {/* Address Details */}
                     <Box fontSize="sm" color={color}>
@@ -381,17 +381,6 @@ const Profile = () => {
                       </HStack>
 
 
-                      <Tooltip label="Remove this address" hasArrow >
-                        <IconButton
-
-                          icon={<DeleteIcon />}
-                          colorScheme="red"
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleDeleteAddress(address?._id)}
-                          aria-label="Delete address"
-                        />
-                      </Tooltip>
                     </Flex>
                   </VStack>
                 </CardBody>
@@ -412,7 +401,7 @@ const Profile = () => {
           flexWrap={'wrap'}
         >
 
-          <Button
+          {/* <Button
             leftIcon={<LockIcon />}
             size="sm"
             mt={3}
@@ -420,7 +409,7 @@ const Profile = () => {
             w={{ base: "full", sm: "full", md: "fit-content" }}
           >
             Change Password
-          </Button>
+          </Button> */}
           <Button
             leftIcon={<LogOutIcon />}
             colorScheme="blue"

@@ -78,11 +78,6 @@ const Menu = () => {
 
   return (
     <Box mb={{ sm: 24 }}>
-
-
-      {/* Search Bar */}
-
-
       {/* Menu Items */}
       {filteredItems.length === 0 ? (
         <Box textAlign="center" py={20}>
@@ -93,9 +88,10 @@ const Menu = () => {
           </Text>
         </Box>
       ) : (
-        <Box my={6} >
+        <Box>
 
           <MenuHeader
+            showBack={true}
             title="Our Delicious Menu"
             subtitle="Explore a variety of dishes prepared with fresh ingredients for every taste."
           />

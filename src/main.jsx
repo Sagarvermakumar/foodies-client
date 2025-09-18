@@ -4,6 +4,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { Toaster } from 'react-hot-toast'
 import { Provider } from 'react-redux'
 import App from './App'
+import LoadingProvider from './components/LoadingProvider'
 import store from './store'
 import theme from './theme'
 
@@ -13,7 +14,9 @@ ReactDOM.createRoot(rootElement).render(
   <Provider store={store}>
     <ChakraProvider theme={theme} >
       <HelmetProvider>
-        <App />
+        <LoadingProvider>
+          <App />
+        </LoadingProvider>
       </HelmetProvider>
       <Toaster
         position="top-right"

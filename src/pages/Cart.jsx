@@ -16,7 +16,6 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  Spinner,
   Text,
   Tooltip,
   VStack
@@ -28,7 +27,9 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import MenuHeader from '../components/MenuHeader'
 import { useBrandColors } from '../hooks/useBrandColors'
+import CartSkeleton from '../Skeletons/CartSkeleton'
 import {
   applyCoupon,
   getCart,
@@ -110,10 +111,7 @@ const Cart = () => {
 
   if (loading) {
     return (
-      <Box textAlign="center" py={20}>
-        <Spinner size="xl" color="brand.primary" />
-        <Text mt={4}>Loading cart...</Text>
-      </Box>
+      <CartSkeleton />
     )
   }
 
@@ -128,7 +126,7 @@ const Cart = () => {
         </Text>
         <Button size={{ base: "md", md: "lg" }}
           as={'a'}
-          href='/#menu'
+          href='/menu'
         >
           Browse Menu
         </Button>
@@ -137,10 +135,8 @@ const Cart = () => {
   }
 
   return (
-    <Box width={'100%'} >
-      <Heading size={{ sm: " sm ", md: "md" }} mb={8} color="brand.primary">
-        Your Cart
-      </Heading>
+    <Box width={'100%'}  >
+      <MenuHeader title={"🛒 Your Cart"} subtitle={'Review your delicious picks before checkout. Add more items or proceed to place your order.'} showBack />
 
       <Flex direction={{ base: 'column', lg: 'row' }} gap={8} mb={{ base: 16, sm: 16, md: 0 }}>
         {/* Cart Items */}
@@ -222,7 +218,7 @@ const Cart = () => {
         </Box>
 
         {/* Cart Summary */}
-        <Box w={{ base: 'full', lg: '400px' }}>
+        <Box w={{ base: 'full', lg: '400px' }} mb={8}>
           <Card bg={bg} borderColor={borderColor} position="sticky" top="100px">
             <CardBody>
               <Heading size="md" mb={6} color="brand.primary">

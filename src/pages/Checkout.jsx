@@ -13,7 +13,6 @@ import {
   Image,
   Radio,
   RadioGroup,
-  Spinner,
   Stack,
   Text,
   VStack,
@@ -23,6 +22,8 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import GlobalLoader from '../components/GlobalLoader'
+import MenuHeader from '../components/MenuHeader'
 import OrderSuccessModal from '../components/Modal/OrderSuccessModal'
 import { useBrandColors } from '../hooks/useBrandColors'
 import { makeLoadingSelector } from '../store/selectors/address.selector'
@@ -141,10 +142,7 @@ const Checkout = () => {
 
   if (isLoadingAddress || orderLoading) {
     return (
-      <Box textAlign="center" py={20}>
-        <Spinner size="xl" color="brand.primary" />
-        <Text mt={4}>Loading checkout...</Text>
-      </Box>
+      <GlobalLoader />
     )
   }
 
@@ -153,10 +151,12 @@ const Checkout = () => {
   }
 
   return (
-    <Box>
-      <Heading size="lg" mb={8} color="brand.primary">
-        Checkout
-      </Heading>
+    <Box mb={28} >
+      <MenuHeader
+        showBack={true}
+        title={'Checkout'}
+        subtitle={'Finalize your delicious order with quick delivery details and secure payment.'}
+      />
 
       <Flex direction={{ base: 'column', lg: 'row' }} gap={8}>
         {/* Left Column - Address & Payment */}

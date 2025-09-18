@@ -1,4 +1,4 @@
-import { Box, Button, Container, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Container, Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import CTAButton from "./UI/CTA";
@@ -46,7 +46,7 @@ export default function CTASection({ isAuthenticated, color }) {
           </motion.div>
 
           {/* Buttons */}
-          <HStack spacing={4} pt={4}>
+          <Stack flexWrap={'wrap'} spacing={4} pt={4}>
             <CTAButton size="lg" onClick={() => navigate('/menu')} >
               Browse All Menu
             </CTAButton>
@@ -65,7 +65,7 @@ export default function CTASection({ isAuthenticated, color }) {
                 Sign Up & Save 20%
               </MotionButton>
             )}
-          </HStack>
+          </Stack>
 
           {/* Extra Trust Line */}
           <motion.div
@@ -74,7 +74,7 @@ export default function CTASection({ isAuthenticated, color }) {
             transition={{ delay: 0.4, duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Text fontSize="sm" color="gray.400" mt={4}>
+            <Text fontSize="sm" color="gray.600" mt={4}>
               🚚 Free delivery on your first order • 🔒 100% Secure Payments • ⭐ Trusted by 10,000+ foodies
             </Text>
           </motion.div>

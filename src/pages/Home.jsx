@@ -81,13 +81,13 @@ const Home = () => {
   }
 
   return (
-    <Stack spacing={{ sm: 4, md: 8 }} m={0} p={0} width={'100%'} >
+    <Stack spacing={{ sm: 4, md: 8 }} my={{ base: 4, md: 8 }} p={0} width={'100%'} >
       {/* Hero Section */}
 
       <HeroSection />
 
       {/* Features Section */}
-      <MenuHeader title={'Why Choose Zayka Express?'} mt={4} />
+      <MenuHeader title={'Why Choose Zayka Express?'} my={8} />
       <SimpleGrid columns={{ base: 1, sm: 1, md: 2, lg: 4 }} spacing={4} m={0} >
         {Array.isArray(features) &&
           features.map((feature, index) => (
@@ -133,6 +133,7 @@ const Home = () => {
           subtitle={
             'Explore a variety of delicious dishes curated just for you. Browse, select, and enjoy your meal with ease!'
           }
+          my={8}
         />
         <Box >
           {isLoadingCategory ? (
@@ -159,6 +160,7 @@ const Home = () => {
             <MenuHeader
               title="Our Delicious Menu"
               subtitle="Explore a variety of dishes prepared with fresh ingredients for every taste."
+              my={8}
             />
             {Array.isArray(categoryItems) && (
               <MenuItemList

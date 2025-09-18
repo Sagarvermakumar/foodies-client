@@ -9,7 +9,7 @@ const Layout = () => {
   const { colorMode } = useColorMode();
 
   return (
-    <Flex flexDir="column" minH="100vh" minW="91vw" maxW={'98vw'} m={'auto'} overflowX="hidden" >
+    <Flex flexDir="column" minH="100vh" minW="91vw" maxW={'100vw'} m={'auto'} overflowX="hidden" >
       {/* Background */}
       <Box
         position="fixed"

@@ -21,13 +21,13 @@ import {
 } from '@chakra-ui/react'
 import {
   Eye as EyeIcon,
-  Repeat as RepeatIcon,
   Search as SearchIcon
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import MenuHeader from '../components/MenuHeader'
 import { useBrandColors } from '../hooks/useBrandColors'
 import OrdersSkeleton from '../Skeletons/OrdersSkeleton'
 import { getMyOrders, quickRepeatOrder } from '../store/slices/orderSlice'
@@ -125,9 +125,10 @@ const Orders = () => {
 
   return (
     <Box >
-      <Heading size="lg" mb={8} color="brand.primary" >
-        My Orders
-      </Heading>
+      <MenuHeader title={'My Orders'}
+        subtitle={'Search by Order ID, filter by current status, and quickly view order details in one place'}
+        showBack={true}
+      />
 
       {/* Filters and Search */}
       <Flex direction={{ base: 'column', md: 'row' }} gap={4} mb={8}>
@@ -278,15 +279,7 @@ const Orders = () => {
                   >
                     View Details
                   </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    colorScheme="blue"
-                    leftIcon={<RepeatIcon />}
-                    onClick={() => handleQuickRepeat(order)}
-                  >
-                    Reorder
-                  </Button>
+
                 </HStack>
 
 

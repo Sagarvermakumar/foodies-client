@@ -131,7 +131,7 @@ const Login = () => {
         duration: 3000,
         isClosable: true,
       })
-      navigate('/')
+      navigate(from, { replace: true });
     } catch (error) {
       console.log(error)
       toast({
@@ -148,7 +148,16 @@ const Login = () => {
 
   return (
     <PublicLayout>
-      <Flex minH="100vh" w="100%" flexDir={{ base: 'column', lg: 'row' }}>
+      <Flex
+        minH="100vh"
+        w="100%"
+        flexDir={{ base: 'column', lg: 'row' }}
+        align="center"
+        justify="center"
+        p={{ sm: 4, md: 8, lg: 12 }}
+        gap={{ sm: 2, base: 2, md: 2, lg: 8 }}
+
+      >
         {/* ===== Left Side (Info / Swap) ===== */}
         <Flex
           flex={1}

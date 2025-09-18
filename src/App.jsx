@@ -6,7 +6,7 @@ import {
   BrowserRouter as Router,
   Routes,
 } from 'react-router-dom'
-import LoadingProvider from './components/LoadingProvider.jsx'
+import { useLoading } from './components/LoadingProvider.jsx'
 import './index.css'
 import { authSelectors } from './store/selectors/authSelectors'
 import { setLoading, userExist, userNotExist } from './store/slices/authSlice'
@@ -31,105 +31,111 @@ const ResetPassword = lazy(() => import('./pages/ResetPassword'))
 const ChangePassword = lazy(() => import('./pages/ChangePassword.jsx'))
 function App() {
   const dispatch = useDispatch()
+  const { startLoading, stopLoading } = useLoading()
 
   const user = useSelector(authSelectors.getUser)
   useEffect(() => {
     const checkAuth = async () => {
       try {
+        startLoading("Fetching User.")
         const res = await axiosClient.get(`/auth/me`, {
           withCredentials: true,
         })
         dispatch(userExist({ user: res?.data?.user }))
+        stopLoading()
+
       } catch (error) {
         dispatch(userNotExist(error.response.data.message || 'Authentication failed'));
         dispatch(setLoading(false));
+        stopLoading()
+      } finally {
+        stopLoading()
+        setLoading(false)
       }
     }
     checkAuth()
-  }, [dispatch])
+  }, [dispatch, startLoading, stopLoading])
 
   const loading = useSelector(authSelectors.isLoading)
 
   return (
     <Router>
-      <DynamicSEO />
-      <LoadingProvider>
-        <Suspense fallback={<GlobalLoader />}>
-          <Routes>
-            {/* Public Routes */}
+      <Suspense fallback={<GlobalLoader />}>
+        <Routes>
+          {/* Public Routes */}
+          <Route
+            path="/login"
+            element={
+              <ProtectRoute user={!user} loading={loading} redirect="/">
+                <Login />
+              </ProtectRoute>
+            }
+          />
+
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+
+          {/* Protected Routes with Layout */}
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="menu" element={<Menu />} />
+
             <Route
-              path="/login"
+              path="cart"
               element={
-                <ProtectRoute user={!user} loading={loading} redirect="/">
-                  <Login />
+                <ProtectRoute user={user} loading={loading}>
+                  <Cart />
                 </ProtectRoute>
               }
             />
+            <Route
+              path="checkout"
+              element={
+                <ProtectRoute user={user} loading={loading}>
+                  <Checkout />
+                </ProtectRoute>
+              }
+            />
+            <Route
+              path="orders"
+              element={
+                <ProtectRoute user={user} loading={loading}>
+                  <Orders />
+                </ProtectRoute>
+              }
+            />
+            <Route
+              path="orders/:orderId/:cartId"
+              element={
+                <ProtectRoute user={user} loading={loading}>
+                  <OrderDetails />
+                </ProtectRoute>
+              }
+            />
+            <Route
+              path="profile"
+              element={
+                <ProtectRoute user={user} loading={loading} >
+                  <Profile />
+                </ProtectRoute>
+              }
+            />
+            <Route
+              path="change-password"
+              element={
+                <ProtectRoute>
+                  <ChangePassword />
+                </ProtectRoute>
+              }
+            />
+          </Route>
 
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-
-            {/* Protected Routes with Layout */}
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="menu" element={<Menu />} />
-
-              <Route
-                path="cart"
-                element={
-                  <ProtectRoute user={user} loading={loading}>
-                    <Cart />
-                  </ProtectRoute>
-                }
-              />
-              <Route
-                path="checkout"
-                element={
-                  <ProtectRoute user={user} loading={loading}>
-                    <Checkout />
-                  </ProtectRoute>
-                }
-              />
-              <Route
-                path="orders"
-                element={
-                  <ProtectRoute user={user} loading={loading}>
-                    <Orders />
-                  </ProtectRoute>
-                }
-              />
-              <Route
-                path="orders/:orderId/:cartId"
-                element={
-                  <ProtectRoute user={user} loading={loading}>
-                    <OrderDetails />
-                  </ProtectRoute>
-                }
-              />
-              <Route
-                path="profile"
-                element={
-                  <ProtectRoute user={user} loading={loading} >
-                    <Profile />
-                  </ProtectRoute>
-                }
-              />
-              <Route
-                path="change-password"
-                element={
-                  <ProtectRoute>
-                    <ChangePassword />
-                  </ProtectRoute>
-                }
-              />
-            </Route>
-
-            {/* Catch all route */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Suspense>
-      </LoadingProvider>
+          {/* Catch all route */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
+      <DynamicSEO />
     </Router>
   )
 }

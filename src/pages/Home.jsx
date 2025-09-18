@@ -91,7 +91,7 @@ const Home = () => {
 
 
         <MenuHeader title={'Why Choose Zayka Express?'} />
-        <SimpleGrid columns={{ base: 1, sm: 1, md: 2, lg: 4 }} spacing={4}  >
+        <SimpleGrid mt={8} columns={{ base: 1, sm: 1, md: 2, lg: 4 }} spacing={4}  >
           {Array.isArray(features) &&
             features.map((feature, index) => (
               <MotionCard
@@ -138,7 +138,7 @@ const Home = () => {
           }
 
         />
-        <Box mt={8} >
+        <Box >
           {isLoadingCategory ? (
             <CategoryListSkeleton />
           ) : (

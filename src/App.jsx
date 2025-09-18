@@ -7,7 +7,6 @@ import {
   Routes,
 } from 'react-router-dom'
 import LoadingProvider from './components/LoadingProvider.jsx'
-import BASE_URL from './config.js'
 import './index.css'
 import { authSelectors } from './store/selectors/authSelectors'
 import { setLoading, userExist, userNotExist } from './store/slices/authSlice'
@@ -37,7 +36,7 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axiosClient.get(`${BASE_URL}/api/v1/auth/me`, {
+        const res = await axiosClient.get(`/auth/me`, {
           withCredentials: true,
         })
         dispatch(userExist({ user: res?.data?.user }))

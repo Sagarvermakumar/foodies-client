@@ -18,6 +18,7 @@ const CategorySection = ({ categories = [], setSelectedCategory }) => {
       justifyContent={{ base: 'flex-start', md: 'center' }}
       css={{ '&::-webkit-scrollbar': { display: 'none' } }}
       maxW="90vw"
+      mt={8}
     >
       <Flex gap={4} wrap="nowrap">
         {categories.map((category, index) => (

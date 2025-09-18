@@ -87,11 +87,11 @@ const Home = () => {
       <HeroSection />
 
       {/* Features Section */}
-      <Box mt={12} mb={8} >
+      <Box mt={12}  >
 
 
         <MenuHeader title={'Why Choose Zayka Express?'} />
-        <SimpleGrid columns={{ base: 1, sm: 1, md: 2, lg: 4 }} spacing={4} m={0} >
+        <SimpleGrid columns={{ base: 1, sm: 1, md: 2, lg: 4 }} spacing={4}  >
           {Array.isArray(features) &&
             features.map((feature, index) => (
               <MotionCard
@@ -130,13 +130,13 @@ const Home = () => {
         </SimpleGrid>
       </Box>
       {/* Categories Section */}
-      <Box mt={12} mb={8} id="menu" >
+      <Box mt={12} id="menu" >
         <MenuHeader
           title={'Choose Your Favorite Category'}
           subtitle={
             'Explore a variety of delicious dishes curated just for you. Browse, select, and enjoy your meal with ease!'
           }
-          my={8}
+
         />
         <Box >
           {isLoadingCategory ? (

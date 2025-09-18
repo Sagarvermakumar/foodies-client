@@ -127,7 +127,7 @@ const Home = () => {
       </SimpleGrid>
 
       {/* Categories Section */}
-      <Box mb={12} id="menu" my={4}>
+      <Box mb={12} mt={8} id="menu" my={4}>
         <MenuHeader
           title={'Choose Your Favorite Category'}
           subtitle={

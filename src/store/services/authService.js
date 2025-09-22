@@ -43,7 +43,7 @@ export const authService = {
 
   // Logout user
   logoutUser: async () => {
-    return await axiosClient.post('/auth/logout')
+    return await axiosClient.post('/auth/logout',{}, { withCredentials: true })
   },
 
   // update profile

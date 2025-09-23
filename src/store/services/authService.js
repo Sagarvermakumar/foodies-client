@@ -38,7 +38,7 @@ export const authService = {
 
   // Get user profile
   getMyProfile: async () => {
-    return await axiosClient.get('/auth/me')
+    return await axiosClient.get('/auth/me?role=CUSTOMER')
   },
 
   // Logout user

@@ -38,7 +38,7 @@ function App() {
     const checkAuth = async () => {
       try {
         startLoading("Fetching User.")
-        const res = await axiosClient.get(`/auth/me`, {
+        const res = await axiosClient.get(`/auth/me?role=CUSTOMER`, {
           withCredentials: true,
         })
         dispatch(userExist({ user: res?.data?.user }))

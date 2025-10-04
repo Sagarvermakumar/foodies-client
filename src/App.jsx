@@ -9,7 +9,7 @@ import {
 import { useLoading } from './components/LoadingProvider.jsx'
 import './index.css'
 import { authSelectors } from './store/selectors/authSelectors'
-import { setLoading, userExist, userNotExist } from './store/slices/authSlice'
+import { logoutUser, setLoading, userExist, userNotExist } from './store/slices/authSlice'
 import axiosClient from './utils/axiosClient.js'
 
 // Lazy load all pages
@@ -31,7 +31,9 @@ const ResetPassword = lazy(() => import('./pages/ResetPassword'))
 const ChangePassword = lazy(() => import('./pages/ChangePassword.jsx'))
 function App() {
   const dispatch = useDispatch()
-  const { startLoading, stopLoading } = useLoading()
+  const { startLoading, stopLoading } = useLoading();
+
+  const userRoles = ["SUPER_ADMIN", "MANAGER", "STAFF", "DELIVERY",];
 
   const user = useSelector(authSelectors.getUser)
   useEffect(() => {
@@ -42,7 +44,11 @@ function App() {
           withCredentials: true,
         })
         dispatch(userExist({ user: res?.data?.user }))
-        stopLoading()
+        stopLoading();
+
+        if (userRoles.includes(res?.data?.user?.role)) {
+          dispatch(logoutUser());
+        }
 
       } catch (error) {
         dispatch(userNotExist(error.response.data.message || 'Authentication failed'));

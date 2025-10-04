@@ -86,7 +86,7 @@ const Login = () => {
       console.log(error)
       toast({
         title: 'Login failed',
-        description: 'error',
+        description: error?.message || 'Something went wrong, Try Again',
         status: 'error',
         duration: 5000,
         isClosable: true,
@@ -315,7 +315,7 @@ const Login = () => {
                   <CardBody>
                     <VStack spacing={6} align="stretch">
                       <Formik
-                        initialValues={{ emailOrPhone: '', password: '' }}
+                        initialValues={{ emailOrPhone: '', password: '', role: "CUSTOMER" }}
                         validationSchema={loginSchema}
                         onSubmit={handlePasswordLogin}
                       >

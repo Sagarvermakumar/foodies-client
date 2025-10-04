@@ -16,7 +16,7 @@ import { useBrandColors } from '../../hooks/useBrandColors';
 import CTAButton from '../UI/CTA';
 // Motion wrapper
 const MotionBox = motion(Box);
-const MenuItemList = ({ filteredItems, onQuantityChange, onAddToCart, loadingItemId, quantities, limit = 4 }) => {
+const MenuItemList = ({ filteredItems, onQuantityChange, onAddToCart, loadingItemId, quantities, limit = 8 }) => {
 
   const itemsToRender = limit ? filteredItems.slice(0, limit) : filteredItems;
   const { borderColor, color } = useBrandColors()

@@ -49,7 +49,7 @@ const AddAddressModal = ({
         bg={bg}
         color={color}
         p={4}
-        backdropFilter="blur(4px)"
+        backdropFilter="blur(1px)"
         boxShadow="0 0 20px 4px rgba(255, 255, 255, 0.2)"
         border="1px solid rgba(255, 255, 255, 0.1)"
       >

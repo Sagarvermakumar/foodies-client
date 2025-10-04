@@ -6,11 +6,11 @@ export const brandKeywords = 'fast food, online food, burger, pizza, Zayka Expre
 
 export const brandDarkBg = '#0000006d'
 
-export const brandLightBg = 'transparent'
+export const brandLightBg = '#fff'
 
 export const brandDarkColor = 'gray.100'
 
-export const brandLightColor = 'gray.700'
+export const brandLightColor = 'gray.300'
 
 export const brandPrimary = '#f60'
 

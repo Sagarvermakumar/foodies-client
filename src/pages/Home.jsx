@@ -56,7 +56,7 @@ const Home = () => {
 
   useEffect(() => {
     if (Array.isArray(categories) && categories.length > 0) {
-      setSelectedCategory(categories[0]._id)
+      setSelectedCategory(categories[4]._id)
     }
   }, [categories])
 
@@ -130,7 +130,7 @@ const Home = () => {
         </SimpleGrid>
       </Box>
       {/* Categories Section */}
-      <Box mt={12} id="menu" >
+      <Box mt={8} id="menu" >
         <MenuHeader
           title={'Choose Your Favorite Category'}
           subtitle={
@@ -144,6 +144,7 @@ const Home = () => {
           ) : (
             Array.isArray(categories) && (
               <CategoryList
+                selectedCategory={selectedCategory}
                 categories={categories}
                 setSelectedCategory={setSelectedCategory}
               />

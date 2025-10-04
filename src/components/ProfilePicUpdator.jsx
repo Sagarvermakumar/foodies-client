@@ -20,12 +20,14 @@ import {
 import { CameraIcon } from "lucide-react";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useBrandColors } from "../hooks/useBrandColors";
 import { authSelectors } from "../store/selectors/authSelectors";
 import { updateProfile } from "../store/slices/authSlice";
 
 const ProfilePictureUpdater = ({ name, avatar }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isUpdateing = useSelector(authSelectors.isUpdatingAvatar)
+  const { color } = useBrandColors();
   const toast = useToast();
   const inputRef = useRef();
   const [preview, setPreview] = useState(null);
@@ -143,7 +145,7 @@ const ProfilePictureUpdater = ({ name, avatar }) => {
         <ModalOverlay backdropFilter='blur(5px) hue-rotate(2deg)' />
         <ModalContent pb={4} bg='blackAlpha.600'
           backdropFilter='blur(10px) hue-rotate(90deg)'>
-          <ModalHeader>Preview & Update</ModalHeader>
+          <ModalHeader color={color} >Preview & Update</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={4}>

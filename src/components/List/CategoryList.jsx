@@ -5,7 +5,7 @@ import { useBrandColors } from '../../hooks/useBrandColors'
 const MotionBox = motion(Box)
 const MotionImage = motion(Image)
 
-const CategorySection = ({ categories = [], setSelectedCategory }) => {
+const CategorySection = ({ categories = [], setSelectedCategory, selectedCategory }) => {
   const { color } = useBrandColors()
   return (
     <Box
@@ -57,7 +57,7 @@ const CategorySection = ({ categories = [], setSelectedCategory }) => {
               textAlign="center"
               fontSize="sm"
               fontWeight="medium"
-              color={color}
+              color={selectedCategory === category?._id ? 'brand.primary' : color}
               variants={{
                 hover: { color: 'brand.primary' },
               }}

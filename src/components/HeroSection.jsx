@@ -31,7 +31,7 @@ const HeroSection = () => {
   return (
     <Box
       w="100vw"
-      minH="75vh"
+      minH={{ sm: "100vh", md: "80vh" }}
       position="relative"
       display="flex"
       alignItems="center"
@@ -72,7 +72,7 @@ const HeroSection = () => {
       {/* ✨ Content */}
       <Container maxW="100%" display="flex" flexWrap={'wrap'} alignItems="center" justifyContent="space-between" px={{ base: 4, md: 8 }}>
         <MotionVStack
-          spacing={6}
+          spacing={{ sm: 6, md: 8 }}
           align={{ base: "flex-start", md: "flex-start" }}
           maxW="650px"
           color="whiteAlpha.900"
@@ -91,9 +91,9 @@ const HeroSection = () => {
           </Text>
 
           <HStack spacing={3} flexWrap="wrap">
-            <Tag size="md" colorScheme="red" px={4} py={1} borderRadius="full">Fresh & Hot</Tag>
+            <Tag size="md" colorScheme="blue" px={4} py={1} borderRadius="full">Fresh & Hot</Tag>
             <Tag size="md" colorScheme="purple" px={4} py={1} borderRadius="full">Fast Delivery</Tag>
-            <Tag size="md" colorScheme="pink" px={4} py={1} borderRadius="full">Handcrafted Taste</Tag>
+            <Tag size="md" colorScheme="green" px={4} py={1} borderRadius="full">Handcrafted Taste</Tag>
           </HStack>
 
 
@@ -115,7 +115,7 @@ const HeroSection = () => {
           transition={{ duration: 4, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
           pl={20}
         >
-          <Box pos="absolute" right="83%">
+          <Box pos="absolute" right={{ sm: "40%", md: "83%" }}  >
             <MotionIcon
               strokeWidth={1.5}
               size={250}

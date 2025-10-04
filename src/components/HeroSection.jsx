@@ -31,7 +31,7 @@ const HeroSection = () => {
   return (
     <Box
       w="100vw"
-      minH={{ sm: "100vh", md: "80vh" }}
+      minH={{ sm: "120vh", md: "90vh" }}
       position="relative"
       display="flex"
       alignItems="center"

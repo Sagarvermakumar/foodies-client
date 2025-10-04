@@ -19,9 +19,10 @@ const initialState = {
 
 export const getAllItems = createAsyncThunk(
   'item/all',
-  async (newPage, { rejectWithValue }) => {
+  async (filters, { rejectWithValue }) => {
     try {
-      const res = await itemAction.getAllItems(newPage)
+      console.log()
+      const res = await itemAction.getAllItems(filters)
       return res.data
     } catch (error) {
       return rejectWithValue(

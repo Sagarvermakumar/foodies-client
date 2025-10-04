@@ -10,7 +10,7 @@ export const brandLightBg = '#fff'
 
 export const brandDarkColor = 'gray.100'
 
-export const brandLightColor = 'gray.300'
+export const brandLightColor = 'gray.900'
 
 export const brandPrimary = '#f60'
 

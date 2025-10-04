@@ -1,111 +1,146 @@
-import { Box, Container, Heading, Text, VStack } from "@chakra-ui/react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { HERO_IMAGES } from "../assets";
+import { Box, Container, HStack, Tag, Text, VStack } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { Coffee, IceCream, Pizza, PopcornIcon, PopsicleIcon, SoupIcon, UtensilsIcon, WineIcon } from "lucide-react";
+import GradientHeading from "../common/GradientHeading";
+import { useBrandColors } from "../hooks/useBrandColors";
 import CTAButton from "./UI/CTA";
 
 const MotionBox = motion(Box);
 const MotionVStack = motion(VStack);
+const foodItems = [
+  // Left/top icons
+  { icon: Coffee, display: { sm: "block", md: "block" }, visibility: { sm: 0.4, md: 0.9 }, x: "59%", y: "32%", size: 40, animY: [-5, 5], animX: [-3, 3], duration: 6, color: "rgba(255, 99, 71, 0.64)" },
+  { icon: PopcornIcon, display: { sm: "none", md: "block" }, visibility: { sm: 0.4, md: 0.9 }, x: "73%", y: "10%", size: 40, animY: [-5, 5], animX: [-3, 3], duration: 6, color: "rgba(255, 215, 0, 0.8)" },
+  { icon: UtensilsIcon, display: { sm: "none", md: "block" }, visibility: { sm: 0.4, md: 0.9 }, x: "60%", y: "66%", size: 40, animY: [-7, 7], animX: [-4, 4], duration: 5, color: "#ff0080a8" },
 
+  // Right/bottom icons
+  { icon: SoupIcon, display: { sm: "block", md: "block" }, visibility: { sm: 0.4, md: 0.9 }, x: "87%", y: "67%", size: 40, animY: [-6, 6], animX: [-2, 2], duration: 7, color: "rgba(255, 215, 0, 0.8)" },
+  { icon: PopsicleIcon, display: { sm: "none", md: "block" }, visibility: { sm: 0.4, md: 0.9 }, x: "87%", y: "33%", size: 40, animY: [-4, 4], animX: [-3, 3], duration: 6.5, color: "rgba(176, 34, 41, 0.8)" },
+
+  // Bottom/left icons
+  { icon: Pizza, display: { sm: "block", md: "block" }, visibility: { sm: 0.4, md: 0.9 }, x: "73%", y: "85%", size: 40, animY: [-6, 6], animX: [-3, 3], duration: 6.8, color: "rgba(255, 140, 0, 0.8)" },
+  { icon: WineIcon, display: { sm: "none", md: "block" }, visibility: { sm: 0.4, md: 0.9 }, x: "6%", y: "3%", size: 40, animY: [-6, 6], animX: [-3, 3], duration: 6.8, color: "rgba(255, 85, 0, 0.65)" },
+
+  // Center big Pizza icon
+];
+
+const MotionIcon = motion(IceCream);
 const HeroSection = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % HERO_IMAGES.length);
-    }, 7000);
-    return () => clearInterval(interval);
-  }, []);
+  const { color } = useBrandColors();
 
   return (
     <Box
-      w="100%"
-      minH="90vh"
+      w="100vw"
+      minH="75vh"
       position="relative"
       display="flex"
       alignItems="center"
-      justifyContent="center"
+      justifyContent="space-between"
       overflow="hidden"
-      borderRadius="2xl"
+      bg={'transparent'}
     >
-      {/* 🔁 Animated Background */}
-      <AnimatePresence mode="wait">
-        <MotionBox
-          key={currentIndex}
-          position="absolute"
-          inset="0"
-          w="100%"
-          h="100%"
-          bgImage={`url(${HERO_IMAGES[currentIndex]})`}
-          bgSize="cover"
-          bgPos="center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2, ease: "easeInOut" }}
-        />
-      </AnimatePresence>
+      {/* 🍔 Animated Food Icons */}
+      {foodItems.map((item, i) => {
+        const IconComp = item.icon;
+        return (
+          <MotionBox
+            key={i}
+            position="absolute"
+            display={{ base: "none", md: "block" }}
+            top={item.y}
+            left={item.x}
+            animate={{
+              y: item.animY,
+              x: item.animX,
+              opacity: [0.4, 0.9, 0.4],
+            }}
+            transition={{
+              duration: item.duration,
+              repeat: Infinity,
+              repeatType: "mirror",
+              ease: "easeInOut",
+            }}
+            zIndex={-1}
+          >
+            <IconComp size={item.size} color={item.color} visibility={0} />
+          </MotionBox>
+        );
+      })}
 
-      {/* 🌫️ Soft Glass Overlay */}
-      <Box
-        position="absolute"
-        inset="0"
-        bg="linear-gradient(to bottom right, rgba(0,0,0,0.6), rgba(0,0,0,0.3))"
-        backdropFilter="blur(8px) saturate(160%)"
-        border="1px solid rgba(255,255,255,0.1)"
-        zIndex={0}
-      />
+
 
       {/* ✨ Content */}
-      <Container maxW="container.lg" zIndex={1}>
+      <Container maxW="100%" display="flex" flexWrap={'wrap'} alignItems="center" justifyContent="space-between" px={{ base: 4, md: 8 }}>
         <MotionVStack
           spacing={6}
           align={{ base: "flex-start", md: "flex-start" }}
-          maxW="100%"
+          maxW="650px"
           color="whiteAlpha.900"
           p={6}
-          bg="rgba(255, 255, 255, 0.1)"
-          border="1px solid rgba(255,255,255,0.15)"
-          backdropFilter="blur(10px)"
+          bg="transparent"
           borderRadius="2xl"
-          boxShadow="0 4px 30px rgba(0, 0, 0, 0.2)"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <MotionBox
-            initial={{ x: -40, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <Heading
-              fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-              lineHeight="1.2"
-              bgGradient="linear(to-r, #ff6a00, #ee0979)"
-              bgClip="text"
-              fontWeight="extrabold"
-              textShadow="0px 2px 10px rgba(0,0,0,0.4)"
-            >
-              Delicious Food Delivered to Your Doorstep
-            </Heading>
-          </MotionBox>
+          <GradientHeading highlight={"Delicious Meals Delivered Freshly to Your Doorstep"} />
+          <Text fontSize={{ base: "md", md: "lg" }} color={color}>
+            Discover a diverse menu featuring irresistible dishes crafted with passion and flavor.
+            From freshly brewed coffee to sweet treats and gourmet pizzas, we bring culinary joy
+            straight to you.
+          </Text>
 
-          <MotionBox
-            initial={{ x: -40, opacity: 0 }}
-            animate={{ x: 0, opacity: 0.95 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <Text fontSize={{ base: "md", md: "lg" }} color="whiteAlpha.800">
-              Discover a diverse menu featuring irresistible dishes crafted with
-              passion and flavor. Experience the joy of dining — wherever you
-              are.
-            </Text>
-          </MotionBox>
+          <HStack spacing={3} flexWrap="wrap">
+            <Tag size="md" colorScheme="red" px={4} py={1} borderRadius="full">Fresh & Hot</Tag>
+            <Tag size="md" colorScheme="purple" px={4} py={1} borderRadius="full">Fast Delivery</Tag>
+            <Tag size="md" colorScheme="pink" px={4} py={1} borderRadius="full">Handcrafted Taste</Tag>
+          </HStack>
+
+
+
 
           <CTAButton as="a" href="#menu">
             Browse Menu
           </CTAButton>
         </MotionVStack>
+
+        {/* Right Side Hero Image/Icon */}
+        <MotionBox
+          display={{ sm: "none", md: "block" }}
+          pos={'relative'}
+          w={{ base: "150px", md: "250px" }}
+          h={{ base: "150px", md: "250px" }}
+          initial={{ visibility: 1 }}
+          animate={{ y: [-10, 10], x: [-5, 5], visibility: .8 }}
+          transition={{ duration: 4, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+          pl={20}
+        >
+          <Box pos="absolute" right="83%">
+            <MotionIcon
+              strokeWidth={1.5}
+              size={250}
+              color="#f80"
+              style={{
+                filter: "drop-shadow(0 0 20px rgba(255, 136, 0, 0.6))"
+              }}
+              animate={{
+                filter: [
+                  "drop-shadow(0 0 5px rgba(255,136,0,0.3))",
+                  "drop-shadow(0 0 25px rgba(255,136,0,0.8))",
+                  "drop-shadow(0 0 5px rgba(255,136,0,0.3))"
+                ]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "easeInOut"
+              }}
+            />
+          </Box>
+
+
+        </MotionBox>
       </Container>
     </Box>
   );

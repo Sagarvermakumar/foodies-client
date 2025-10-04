@@ -1,34 +1,35 @@
 import {
   Box,
-  Text
+  IconButton,
+  Text,
+  useDisclosure
 } from '@chakra-ui/react'
 
-import { useEffect, useState } from 'react'
+import { SlidersHorizontalIcon } from 'lucide-react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MenuSkeleton from '../Skeletons/MenuSkeleton'
 import Pagination from '../common/Pagination'
 import MenuItemList from '../components/List/MenuItemList'
+import MenuFilters from '../components/MenuFilter'
 import MenuHeader from '../components/MenuHeader'
 import { useCartActions } from '../hooks/useCartActions'
+import { categorySelectors } from '../store/selectors/categorySelectors'
 import { itemSelector } from '../store/selectors/itemselector'
 import { getAllItems, setItemPage } from '../store/slices/ItemSlice'
 import { setQuantity } from '../store/slices/cartUISlice'
+import { getCategories } from '../store/slices/categorySlice'
 
 const Menu = () => {
   const dispatch = useDispatch()
-  const [searchTerm] = useState('')
-  const { quantities } = useSelector((state) => state.cartUI)
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const { quantities } = useSelector((state) => state.cartUI)
+  const categories = useSelector(categorySelectors.getCategories)
 
   const items = useSelector(itemSelector.getAllItems);
   const isLoadingItems = useSelector(itemSelector.isLoading('items'));
 
-
-  const filteredItems = items?.filter(
-    (item) =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchTerm.toLowerCase())
-  )
   const { handleAddToCart, loadingItemId } = useCartActions()
 
   const currentPage = useSelector(itemSelector.pagination).page
@@ -40,9 +41,14 @@ const Menu = () => {
     dispatch(getAllItems(currentPage))
   }, [dispatch, currentPage])
 
+  useEffect(() => {
+    dispatch(getCategories())
+  }, [dispatch])
 
 
-
+  const handleApplyFilter = filters => {
+    dispatch(getAllItems({ page: currentPage, ...filters }));
+  }
   useEffect(() => {
     // Initialize quantities for all items
     if (items?.length > 0) {
@@ -60,8 +66,6 @@ const Menu = () => {
 
 
 
-
-
   if (isLoadingItems) {
     return (
       <MenuSkeleton />
@@ -71,41 +75,54 @@ const Menu = () => {
   if (!items) {
     return (
       <Box textAlign="center" py={20}>
-        <Text color="gray.500">Item not found</Text>
+        <Text color="gray.500" fontSize="lg">
+
+          No dishes found matching your search
+        </Text>
       </Box>
     )
   }
 
   return (
     <Box mb={{ sm: 24 }}>
-      {/* Menu Items */}
-      {filteredItems.length === 0 ? (
-        <Box textAlign="center" py={20}>
-          <Text color="gray.500" fontSize="lg">
-            {searchTerm
-              ? 'No dishes found matching your search.'
-              : 'No dishes available in this category.'}
-          </Text>
-        </Box>
-      ) : (
-        <Box>
+      {/* Header with Filter Icon */}
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+        <MenuHeader
+          showBack={true}
+          title="Our Delicious Menu"
+          subtitle="Explore a variety of dishes prepared with fresh ingredients for every taste."
+        />
+        {/* Filter Button */}
+        <IconButton
+          icon={<SlidersHorizontalIcon />}
+          aria-label="Open Filters"
+          onClick={onOpen}
+          variant="outline"
+        />
+      </Box>
 
-          <MenuHeader
-            showBack={true}
-            title="Our Delicious Menu"
-            subtitle="Explore a variety of dishes prepared with fresh ingredients for every taste."
-          />
-          <MenuItemList
-            onAddToCart={handleAddToCart}
-            onQuantityChange={handleQuantityChange}
-            loadingItemId={loadingItemId}
-            quantities={quantities}
-            filteredItems={filteredItems}
-            limit={9}
-          />
-          <Pagination pagination={pagination} fetchAction={getAllItems} setPageAction={setItemPage} />
-        </Box>
-      )}
+      {/* Drawer for Filters */}
+
+
+
+      <MenuFilters onFilterChange={handleApplyFilter} categories={categories} isOpen={isOpen} onClose={onClose} />
+
+
+
+      <MenuItemList
+        onAddToCart={handleAddToCart}
+        onQuantityChange={handleQuantityChange}
+        loadingItemId={loadingItemId}
+        quantities={quantities}
+        filteredItems={items}
+        limit={9}
+      />
+      <Pagination
+        pagination={pagination}
+        fetchAction={getAllItems}
+        setPageAction={setItemPage}
+      />
+
     </Box>
   )
 }

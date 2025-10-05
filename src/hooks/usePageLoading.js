@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useLoading } from '@/components/LoadingProvider'
+import { useLoading } from '../components/LoadingProvider'
 
 export const usePageLoading = (isLoading, message = 'Loading page...') => {
   const { startLoading, stopLoading } = useLoading()

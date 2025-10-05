@@ -33,10 +33,10 @@ function App() {
   const dispatch = useDispatch()
   const { startLoading, stopLoading } = useLoading();
 
-  const userRoles = ["SUPER_ADMIN", "MANAGER", "STAFF", "DELIVERY",];
 
   const user = useSelector(authSelectors.getUser)
   useEffect(() => {
+    const userRoles = ["SUPER_ADMIN", "MANAGER", "STAFF", "DELIVERY",];
     const checkAuth = async () => {
       try {
         startLoading("Fetching User.")
@@ -51,7 +51,7 @@ function App() {
         }
 
       } catch (error) {
-        dispatch(userNotExist(error.response.data.message || 'Authentication failed'));
+        dispatch(userNotExist(error?.response?.data?.message || 'Authentication failed'));
         dispatch(setLoading(false));
         stopLoading()
       } finally {

@@ -15,6 +15,7 @@ import { setQuantity } from '../store/slices/cartUISlice'
 import CTASection from '../components/CTASection.jsx'
 import HeroSection from '../components/HeroSection.jsx'
 import CategoryList from '../components/List/CategoryList.jsx'
+import FeatureList from '../components/List/FeatureList.jsx'
 import MenuItemList from '../components/List/MenuItemList.jsx'
 import MenuHeader from '../components/MenuHeader.jsx'
 import CategoryListSkeleton from '../Skeletons/CategoryList.jsx'
@@ -80,14 +81,14 @@ const Home = () => {
       <HeroSection />
 
       {/* Features Section */}
-      <Box mt={12}  >
-
-
+      <Box id='features ' >
         <MenuHeader title={'Why Choose Zayka Express?'} />
-
+        <FeatureList />
       </Box>
+
+
       {/* Categories Section */}
-      <Box mt={8} id="menu" >
+      <Box id="menu" >
         <MenuHeader
           title={'Choose Your Favorite Category'}
           subtitle={

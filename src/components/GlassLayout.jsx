@@ -91,7 +91,7 @@ const Banner = () => {
       />
 
       {/* 🔲 Grid Overlay */}
-      <Box
+      {/* <Box
         position="relative"
         w="100%"
         h="100vh"
@@ -108,7 +108,7 @@ const Banner = () => {
           bgSize: "50px 50px",
           animation: `${move} 10s linear infinite`,
         }}
-      ></Box>
+      ></Box> */}
     </Box>
   );
 };

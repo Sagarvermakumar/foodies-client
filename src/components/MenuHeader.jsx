@@ -1,4 +1,4 @@
-import { Heading, HStack, IconButton, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, HStack, IconButton, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { MoveLeftIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -48,23 +48,26 @@ const MenuHeader = ({ title, subtitle, my = 0, showBack = false, alignLg = "cent
       </HStack>
 
       {/* Subtitle */}
-      {subtitle && (
-        <MotionVStack
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+      <Box display={{ sm: "none", md: "block" }}>
+        {subtitle && (
+          <MotionVStack
 
-        >
-          <Text
-            fontSize={{ base: "sm", md: "md" }}
-            color="gray.500"
-            textAlign={{ base: "left", lg: "center" }}
-            mb={8}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+
           >
-            {subtitle}
-          </Text>
-        </MotionVStack>
-      )}
+            <Text
+              fontSize={{ base: "sm", md: "md" }}
+              color="gray.500"
+              textAlign={{ base: "left", lg: "center" }}
+              mb={8}
+            >
+              {subtitle}
+            </Text>
+          </MotionVStack>
+        )}
+      </Box>
     </MotionVStack>
   );
 };

@@ -1,4 +1,5 @@
 import {
+  Card,
   CardBody,
   Heading,
   Icon,
@@ -6,8 +7,13 @@ import {
   Text,
   VStack
 } from '@chakra-ui/react'
+import { motion } from 'framer-motion'
 import { features } from '../../assets'
 import { useBrandColors } from '../../hooks/useBrandColors'
+
+
+
+const MotionCard = motion(Card)
 const FeatureList = () => {
   const { borderColor, bg } = useBrandColors()
   return (

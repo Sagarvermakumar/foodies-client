@@ -23,23 +23,24 @@ import {
   Progress,
   Select,
   Spinner,
+  Stack,
   Text,
   Textarea,
   VStack,
   useDisclosure
 } from '@chakra-ui/react'
 import {
-  ArrowLeft as ArrowBackIcon,
   CheckCircle as CheckCircleIcon,
   CreditCard as CreditCardIcon,
   MapPin as MapPinIcon,
   Phone as PhoneIcon,
-  Repeat as RepeatIcon,
+  Repeat as RepeatIcon
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
+import MenuHeader from '../components/MenuHeader'
 import { useBrandColors } from '../hooks/useBrandColors'
 
 const OrderDetails = () => {
@@ -187,27 +188,14 @@ const OrderDetails = () => {
 
 
   return (
-    <Box>
+    <Stack spacing={8} >
       {/* Header */}
 
-      {/* Left side */}
-      <HStack spacing={3} mb={6} >
-        <Button
-          variant="ghost"
-          size="lg"
-          leftIcon={<ArrowBackIcon />}
-          onClick={() => navigate("/orders")}
-        >
-          Orders
-        </Button>
-        <Heading
-          size={{ base: "sm", md: "md" }}
-          color="brand.primary"
-          wordBreak="break-word"
-        >
-          🆔{currentOrder.orderNo}
-        </Heading>
-      </HStack>
+
+
+      <MenuHeader title={' Orders Summary'}
+        showBack={true}
+      />
 
       {/* Right side */}
 
@@ -569,7 +557,7 @@ const OrderDetails = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </Box>
+    </Stack>
   )
 }
 

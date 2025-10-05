@@ -299,20 +299,20 @@ const Checkout = () => {
                     <HStack spacing={3}>
                       <Image
                         src={
-                          item.item.image ||
+                          item?.item?.image ||
                           'https://via.placeholder.com/40x40?text=Food'
                         }
-                        alt={item.item.name}
+                        alt={item.item?.name}
                         boxSize="40px"
                         objectFit="cover"
                         borderRadius="md"
                       />
                       <Box>
                         <Text fontWeight="medium" fontSize="sm">
-                          {item.item.name}
+                          {item.item?.name}
                         </Text>
                         <Text fontSize="xs" color="gray.600">
-                          Qty: {item.qty}
+                          Qty: {item?.qty}
                         </Text>
                       </Box>
                     </HStack>

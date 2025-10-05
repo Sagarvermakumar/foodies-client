@@ -1,6 +1,7 @@
 import {
   Box,
   IconButton,
+  Stack,
   Text,
   useDisclosure
 } from '@chakra-ui/react'
@@ -47,6 +48,7 @@ const Menu = () => {
 
 
   const handleApplyFilter = filters => {
+    console.log({ filters })
     dispatch(getAllItems({ page: currentPage, ...filters }));
   }
   useEffect(() => {
@@ -84,7 +86,7 @@ const Menu = () => {
   }
 
   return (
-    <Box mb={{ sm: 24 }}>
+    <Stack spacing={8} mb={{ sm: 24 }}>
       {/* Header with Filter Icon */}
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
         <MenuHeader
@@ -97,7 +99,9 @@ const Menu = () => {
           icon={<SlidersHorizontalIcon />}
           aria-label="Open Filters"
           onClick={onOpen}
-          variant="outline"
+          variant="solid"
+          borderRadius={'full'}
+
         />
       </Box>
 
@@ -123,7 +127,7 @@ const Menu = () => {
         setPageAction={setItemPage}
       />
 
-    </Box>
+    </Stack>
   )
 }
 

@@ -75,7 +75,7 @@ const Home = () => {
   }
 
   return (
-    <Stack spacing={{ sm: 4, md: 8 }} my={{ base: 4, md: 8 }} p={0} width={'100%'} >
+    <Stack spacing={{ base: 12, md: 8 }} my={{ base: 4, md: 8 }} p={0} width={'100%'} >
       {/* Hero Section */}
 
       <HeroSection />

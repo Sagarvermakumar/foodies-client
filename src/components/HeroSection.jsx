@@ -288,9 +288,10 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          fontSize={{ sm: "" }}
         >
           <GradientHeading
-            fontsize={{ sm: '4xl', md: "5xl" }}
+            fontsize={{ sm: '5xl', base: "5xl", md: "6xl" }}
             highlight={'Delicious Meals Delivered Freshly to Your Doorstep'}
           />
 

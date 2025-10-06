@@ -290,6 +290,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8 }}
         >
           <GradientHeading
+            fontsize={{ sm: '4xl', md: "5xl" }}
             highlight={'Delicious Meals Delivered Freshly to Your Doorstep'}
           />
 

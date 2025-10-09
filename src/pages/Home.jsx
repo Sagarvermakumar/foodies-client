@@ -80,11 +80,7 @@ const Home = () => {
 
       <HeroSection />
 
-      {/* Features Section */}
-      <Box id='features ' >
-        <MenuHeader title={'Why Choose Zayka Express?'} />
-        <FeatureList />
-      </Box>
+
 
 
       {/* Categories Section */}
@@ -136,7 +132,11 @@ const Home = () => {
           </Box>
         )}
       </Box>
-
+      {/* Features Section */}
+      <Box id='features ' >
+        <MenuHeader title={'Why Choose Zayka Express?'} />
+        <FeatureList />
+      </Box>
       {/* CTA Section */}
       <CTASection color={color} isAuthenticated={isAuthenticated} />
     </Stack>

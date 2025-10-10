@@ -108,7 +108,7 @@ const ProfilePictureUpdater = ({ name, avatar }) => {
   };
 
 
-
+  const { bg } = useBrandColors()
   return (
     <Box position="relative" w="fit-content" >
       <Avatar src={avatar} size="2xl" name={name} />
@@ -143,7 +143,7 @@ const ProfilePictureUpdater = ({ name, avatar }) => {
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay backdropFilter='blur(5px) hue-rotate(2deg)' />
-        <ModalContent pb={4} bg='blackAlpha.600'
+        <ModalContent pb={4} bg={bg}
           backdropFilter='blur(10px) hue-rotate(90deg)'>
           <ModalHeader color={color} >Preview & Update</ModalHeader>
           <ModalCloseButton />

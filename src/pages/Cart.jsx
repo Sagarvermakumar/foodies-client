@@ -65,7 +65,6 @@ const Cart = () => {
   };
 
   const handleRemoveItem = async (itemId) => {
-    console.log(itemId);
     try {
       setIsRemoving(true)
 

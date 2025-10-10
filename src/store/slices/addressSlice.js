@@ -6,6 +6,8 @@ const initialState = {
   addressFromPin: {
     city: '',
     state: '',
+    country:'',
+    pinCode:''
   },
   defaultAddress: null,
   loading:{
@@ -271,8 +273,10 @@ const addressSlice = createSlice({
       })
       .addCase(getLocationByPincode.fulfilled, (state, action) => {
         state.loading.getAddressFromPin = false
-        state.addressFromPin.city = action.payload.data.city
+        state.addressFromPin.city = action.payload.data.district
         state.addressFromPin.state = action.payload.data.state
+        state.addressFromPin.country = action.payload.data.country
+        state.addressFromPin.pinCode = action.payload.data.pinCode
       })
       .addCase(getLocationByPincode.rejected, (state, action) => {
         state.loading.getAddressFromPin = false

@@ -12,6 +12,7 @@ import {
   ModalOverlay,
   Select,
   SimpleGrid,
+  Text,
   Textarea
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from 'formik'
@@ -22,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useBrandColors } from '../../hooks/useBrandColors'
 import { useGeolocation } from '../../hooks/useGeolocation'
 import { makeLoadingSelector } from '../../store/selectors/address.selector'
+import { authSelectors } from '../../store/selectors/authSelectors'
 import { createAddress, getLocationByPincode, updateAddress } from '../../store/slices/addressSlice'
 import { addressValidationSchema } from '../../utils/validationSchemas'
 // import { } from '../../se '
@@ -39,8 +41,7 @@ const AddAddressModal = ({
   const dispatch = useDispatch()
   const isCreatingAddress = useSelector(makeLoadingSelector('add'))
   const isUpdatingAddress = useSelector(makeLoadingSelector('update'))
-
-
+  const user = useSelector(authSelectors.getUser)
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered >
@@ -63,13 +64,11 @@ const AddAddressModal = ({
               addressLine: editingAddress?.addressLine || '',
               street: editingAddress?.street || '',
               landmark: editingAddress?.landmark || '',
-              city: editingAddress?.city || pinAddress.city || '',
-              state: editingAddress?.state || pinAddress.state || '',
               pinCode: editingAddress?.pinCode || '',
-              country: editingAddress?.country || 'India',
+
               location: editingAddress?.location || { type: 'Point', coordinates },
-              contactName: editingAddress?.contactName || '',
-              contactPhone: editingAddress?.contactPhone || '',
+              contactName: editingAddress?.contactName || user?.name || '',
+              contactPhone: editingAddress?.contactPhone || user?.phone || '',
               instructions: editingAddress?.instructions || '',
             }}
             validationSchema={addressValidationSchema}
@@ -81,15 +80,19 @@ const AddAddressModal = ({
                   ).unwrap()
                   toast.success('Address updated successfully')
                 } else {
-                  await dispatch(createAddress(values)).unwrap()
-                  toast.success('Address added successfully')
+                  try {
+                    const res = await dispatch(createAddress(values)).unwrap()
+                    console.log(res)
+                    toast.success('Address added successfully')
+                  } catch (error) {
+                    console.log(error)
+                  }
                 }
                 onClose()
                 resetForm()
                 setEditingAddress(null)
               } catch (error) {
-                console.log('Error occurred : ', error)
-                toast.error('Failed to save address')
+                toast.error(error || 'Failed to save address')
               } finally {
                 setSubmitting(false)
 
@@ -168,51 +171,35 @@ const AddAddressModal = ({
                           <Input
                             {...field}
                             placeholder="6-digit PIN"
+                            // value={pinAddress.pinCode || ""}
                             onChange={(e) => {
                               const { value } = e.target;
                               form.setFieldValue("pinCode", value); // Formik state update
                               handlePincodeChange(value);           // Debounced dispatch
                             }}
                           />
+                          {
+                            pinAddress.city !== "" && (<Text
+                              pt={2}
+                              pl={2}
+                              fontSize={'sm'}
+                              color={'gray.800'}
+
+                            >{`${pinAddress.city},${pinAddress.state}, ${pinAddress.country}`}</Text>
+                            )
+                          }
                           <FormErrorMessage>{form.errors.pinCode}</FormErrorMessage>
                         </FormControl>
                       );
                     }}
                   </Field>
 
-                  {/* City */}
-                  <Field name="city">
-                    {({ field, form }) => (
-                      <FormControl isInvalid={form.errors.city && form.touched.city}>
-                        <FormLabel>City</FormLabel>
-                        <Input {...field} placeholder="City" />
-                        <FormErrorMessage>{form.errors.city}</FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
-
-                  {/* State */}
-                  <Field name="state">
-                    {({ field, form }) => (
-                      <FormControl isInvalid={form.errors.state && form.touched.state}>
-                        <FormLabel>State</FormLabel>
-                        <Input {...field} placeholder="State" />
-                        <FormErrorMessage>{form.errors.state}</FormErrorMessage>
-                      </FormControl>
-                    )}
-                  </Field>
 
 
 
-                  {/* Country */}
-                  <Field name="country">
-                    {({ field }) => (
-                      <FormControl>
-                        <FormLabel>Country</FormLabel>
-                        <Input {...field} disabled />
-                      </FormControl>
-                    )}
-                  </Field>
+
+
+
 
                   {/* Contact Name */}
                   <Field name="contactName">

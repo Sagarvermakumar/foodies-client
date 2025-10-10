@@ -218,7 +218,7 @@ const Register = () => {
                         {({ field }) => (
                           <FormControl isInvalid={errors.phone && touched.phone}>
                             <FormLabel>Phone Number</FormLabel>
-                            <Input {...field} placeholder="+91123-456-7890" type="tel" />
+                            <Input {...field} placeholder="+91 123-456-7890" type="tel" />
                             <FormErrorMessage>{errors.phone}</FormErrorMessage>
                           </FormControl>
                         )}

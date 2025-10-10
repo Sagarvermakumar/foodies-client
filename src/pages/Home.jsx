@@ -114,7 +114,7 @@ const Home = () => {
           <MenuSkeleton />
 
         ) : (
-          <Box mt={12}>
+          <Box >
             <MenuHeader
               title="Our Delicious Menu"
               subtitle="Explore a variety of dishes prepared with fresh ingredients for every taste."
@@ -133,7 +133,7 @@ const Home = () => {
         )}
       </Box>
       {/* Features Section */}
-      <Box id='features ' >
+      <Box id='features ' mt={{ sm: 4, md: 8 }} >
         <MenuHeader title={'Why Choose Zayka Express?'} />
         <FeatureList />
       </Box>

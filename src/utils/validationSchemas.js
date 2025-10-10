@@ -36,12 +36,9 @@ export const addressValidationSchema = Yup.object().shape({
   addressLine: Yup.string().required('Address line is required'),
   street: Yup.string().nullable(),
   landmark: Yup.string().nullable(),
-  city: Yup.string().required('City is required'),
-  state: Yup.string().required('State is required'),
   pinCode: Yup.string()
     .matches(/^\d{6}$/, 'Pin Code must be 6 digits')
     .required('Pin Code is required'),
-  country: Yup.string().required(),
   contactName: Yup.string().required('Contact name is required'),
   contactPhone: Yup.string()
     .matches(phoneRegExp, 'Phone number must be 10 digits')

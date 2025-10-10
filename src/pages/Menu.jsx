@@ -48,7 +48,6 @@ const Menu = () => {
 
 
   const handleApplyFilter = filters => {
-    console.log({ filters })
     dispatch(getAllItems({ page: currentPage, ...filters }));
   }
   useEffect(() => {

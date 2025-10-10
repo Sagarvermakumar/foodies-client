@@ -12,7 +12,7 @@ export const brandDarkColor = 'gray.100'
 
 export const brandLightColor = 'gray.900'
 
-export const brandPrimary = '#f60'
+export const brandPrimary = '#f10'
 
 export const brandColorScheme = 'red'
 

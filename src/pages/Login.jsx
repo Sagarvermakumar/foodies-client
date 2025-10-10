@@ -83,7 +83,6 @@ const Login = () => {
         isClosable: true,
       })
     } catch (error) {
-      console.log(error)
       toast({
         title: 'Login failed',
         description: error?.message || 'Something went wrong, Try Again',
@@ -133,7 +132,6 @@ const Login = () => {
       })
       navigate(from, { replace: true });
     } catch (error) {
-      console.log(error)
       toast({
         title: 'OTP verification failed',
         description: 'error',
